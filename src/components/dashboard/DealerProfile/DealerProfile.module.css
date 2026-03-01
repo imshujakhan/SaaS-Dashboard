@@ -1,0 +1,49 @@
+.dealerProfileContainer {
+  font-size: 20px;
+  margin: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.dealerHeading {
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(135deg, #a51e1e 0%, #8b1818 100%);
+  padding: 20px;
+}
+
+.dealerHeading h1 {
+  color: white;
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tableWrapper {
+  padding: 30px;
+}
+
+.dealerTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dealerTable th {
+  font-weight: 600;
+  color: #555;
+  text-align: left;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border: 2px solid #dee2e6;
+  white-space: nowrap;
+}
+
+.dealerTable td {
+  color: #333;
+  padding: 16px;
+  border: 2px solid #dee2e6;
+}

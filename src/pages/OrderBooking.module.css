@@ -1,0 +1,196 @@
+.pageContainer {
+  min-height: 100vh;
+  background: white;
+}
+
+.header {
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 20px 0;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #333;
+}
+
+.dealerLoginBtn {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dealerLoginBtn:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+.mainContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.contentSection h2 {
+  font-size: 56px;
+  color: #333;
+  margin: 0 0 20px 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.contentSection > p {
+  font-size: 24px;
+  color: #666;
+  margin: 0 0 60px 0;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 60px;
+  text-align: left;
+}
+
+.feature {
+  padding: 30px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.feature h3 {
+  font-size: 22px;
+  color: #333;
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+
+.feature p {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.bookButton {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 20px 60px;
+  border-radius: 8px;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bookButton:hover {
+  background: #555;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.trackSection {
+  margin-top: 80px;
+  padding-top: 60px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.trackSection h3 {
+  font-size: 32px;
+  color: #333;
+  margin: 0 0 30px 0;
+  font-weight: 600;
+}
+
+.trackForm {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.trackInput {
+  padding: 16px 24px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 18px;
+  width: 350px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.trackInput:focus {
+  border-color: #333;
+}
+
+.trackButton {
+  background: #333;
+  color: white;
+  border: none;
+  padding: 16px 40px;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.trackButton:hover {
+  background: #555;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 968px) {
+  .contentSection h2 {
+    font-size: 42px;
+  }
+
+  .contentSection > p {
+    font-size: 20px;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .bookButton {
+    font-size: 20px;
+    padding: 18px 50px;
+  }
+}
+
+@media (max-width: 640px) {
+  .headerContent {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .contentSection h2 {
+    font-size: 32px;
+  }
+
+  .contentSection > p {
+    font-size: 18px;
+  }
+}

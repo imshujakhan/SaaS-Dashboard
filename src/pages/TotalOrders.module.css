@@ -1,0 +1,208 @@
+.container {
+  min-height: 100vh;
+  padding: 30px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #333;
+}
+
+.header button {
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.header button:hover {
+  background-color: #5a6268;
+}
+
+.tableContainer {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ordersTable thead {
+  background-color: #f8f9fa;
+}
+
+.ordersTable th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.ordersTable td {
+  padding: 16px;
+  border-bottom: 1px solid #dee2e6;
+  color: #555;
+}
+
+.ordersTable tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.statusBadge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.statusPending {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.statusReceiving {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.statusCompleted {
+  background-color: #28a745;
+  color: white;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  font-size: 20px;
+  color: #666;
+}
+
+.totalCount {
+  padding: 20px;
+  text-align: right;
+  background-color: #f8f9fa;
+  border-top: 2px solid #dee2e6;
+  font-size: 18px;
+  color: #333;
+}
+
+.filterSection {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.filterGroup label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+}
+
+.dateInput {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.clearButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.clearButton:hover {
+  background-color: #5a6268;
+}
+
+.searchInput {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+  min-width: 250px;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.pagination button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-weight: 500;
+  color: #333;
+}

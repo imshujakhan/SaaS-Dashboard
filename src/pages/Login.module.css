@@ -1,0 +1,184 @@
+.loginContainer {
+  min-height: 100vh;
+  display: flex;
+  background: white;
+}
+
+.leftSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  color: #2c3e50;
+}
+
+.content {
+  max-width: 500px;
+}
+
+.mainTitle {
+  font-size: 32px;
+  font-weight: 300;
+  margin: 0 0 10px 0;
+}
+
+.brandTitle {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0 0 30px 0;
+  letter-spacing: 2px;
+  color: #667eea;
+}
+
+.description {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  color: #555;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.feature {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rightSection {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.loginBox {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  padding: 50px;
+}
+
+.logoSection {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  font-size: 16px;
+  margin: 0;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formGroup label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.formGroup input {
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.formGroup input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.error {
+  background: #fee;
+  color: #c33;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  text-align: center;
+  border: 1px solid #fcc;
+}
+
+.loginButton {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.loginButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  background: #5568d3;
+}
+
+.loginButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  text-align: center;
+}
+
+.footer p {
+  color: #7f8c8d;
+  font-size: 13px;
+  margin: 0;
+}
+
+@media (max-width: 968px) {
+  .loginContainer {
+    flex-direction: column;
+  }
+
+  .leftSection {
+    padding: 40px 30px;
+  }
+
+  .brandTitle {
+    font-size: 36px;
+  }
+
+  .rightSection {
+    padding: 30px 20px;
+  }
+}
