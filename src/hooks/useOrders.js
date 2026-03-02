@@ -9,7 +9,7 @@ import {
 
 export const useOrders = () => {
   const dispatch = useDispatch();
-  const { loading, searchQuery, currentPage } = useSelector((state) => state.orders);
+  const { loading, searchQuery, currentPage, selectedOrders } = useSelector((state) => state.orders);
   const filteredOrders = useSelector(selectFilteredOrders);
   const paginatedOrders = useSelector(selectPaginatedOrders);
   const totalPages = useSelector(selectTotalPages);
@@ -26,5 +26,6 @@ export const useOrders = () => {
     filteredOrders,
     paginatedOrders,
     totalPages,
+    selectedOrders,
   };
 };

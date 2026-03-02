@@ -1,19 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./Nav.module.css";
+import { logout } from "../../../utils/auth";
 
 const Nav = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("dealerId");
-    localStorage.removeItem("dealerData");
-    navigate("/login");
+    logout();
+    navigate("/login", { replace: true });
   };
 
   return (
     <div className={styles.navContainer}>
-      <h1>HSRP Dealer Dashboard</h1>
-      <button onClick={handleLogout}>Logout</button>
+      <h1 onClick={() => navigate("/dashboard")}>HSRP Dealer Dashboard</h1>
+      <div className={styles.navLinks}>
+        <button onClick={handleLogout} className={styles.logoutBtn}>Logout</button>
+      </div>
     </div>
   );
 };

@@ -10,10 +10,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f7fa;
-  color: #333;
+  background: #f0fdf4;
+  color: #1a1a1a;
 }
 
 main {
   min-height: 100vh;
+  background: #f0fdf4;
 }

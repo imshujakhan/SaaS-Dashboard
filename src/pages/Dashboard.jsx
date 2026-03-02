@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import DealerProfile from "../components/dashboard/DealerProfile/DealerProfile";
 import OrdersSummary from "../components/dashboard/OrdersSummary/OrdersSummary";
 import OrdersData from "../components/dashboard/OrdersData/OrdersData";
-import { api } from "../lib/api";
+import { api } from "../services/api";
 import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {

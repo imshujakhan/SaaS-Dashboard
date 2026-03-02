@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./TotalOrders.module.css";
-import { api } from "../lib/api";
+import { api } from "../services/api";
 
 const Orders = () => {
   const navigate = useNavigate();
@@ -13,6 +13,8 @@ const Orders = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isReceivingPage, setIsReceivingPage] = useState(false);
+  const [selectedOrders, setSelectedOrders] = useState([]);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -22,12 +24,19 @@ const Orders = () => {
 
       if (path.includes("receiving")) {
         setTitle("Pending for Receiving");
+        setIsReceivingPage(true);
+        result = await api.getOrdersByStatus(dealerId, "receiving");
+      } else if (path.includes("received")) {
+        setTitle("Received Orders");
+        setIsReceivingPage(false);
         result = await api.getOrdersByStatus(dealerId, "received");
       } else if (path.includes("pending")) {
         setTitle("Pending Orders");
+        setIsReceivingPage(false);
         result = await api.getOrdersByStatus(dealerId, "pending");
       } else if (path.includes("completed")) {
         setTitle("Completed Orders");
+        setIsReceivingPage(false);
         result = await api.getOrdersByStatus(dealerId, "completed");
       }
 
@@ -46,7 +55,7 @@ const Orders = () => {
     // Date filter
     if (startDate || endDate) {
       filtered = filtered.filter((order) => {
-        const orderDate = new Date(order.timeline.orderPlaced);
+        const orderDate = new Date(order.orderPlaced);
         const start = startDate ? new Date(startDate) : null;
         const end = endDate ? new Date(endDate) : null;
 
@@ -63,15 +72,62 @@ const Orders = () => {
 
     // Search filter
     if (searchQuery) {
-      filtered = filtered.filter((order) =>
-        order.orderId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        order.customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        order.customer.mobile.includes(searchQuery)
+      filtered = filtered.filter(
+        (order) =>
+          order.orderId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          order.customerName
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          order.customerMobile.includes(searchQuery),
       );
     }
 
     setFilteredOrders(filtered);
   }, [startDate, endDate, searchQuery, orders]);
+
+  const handleMarkAsReceived = async (orderId) => {
+    const result = await api.updateOrderStatus(orderId, 'pending');
+    if (result.success) {
+      setOrders(orders.filter(o => o.orderId !== orderId));
+      setFilteredOrders(filteredOrders.filter(o => o.orderId !== orderId));
+      setSelectedOrders(selectedOrders.filter(id => id !== orderId));
+    } else {
+      alert('Failed to update order');
+    }
+  };
+
+  const handleSelectAll = (e) => {
+    if (e.target.checked) {
+      setSelectedOrders(filteredOrders.map(o => o.orderId));
+    } else {
+      setSelectedOrders([]);
+    }
+  };
+
+  const handleSelectOrder = (orderId) => {
+    if (selectedOrders.includes(orderId)) {
+      setSelectedOrders(selectedOrders.filter(id => id !== orderId));
+    } else {
+      setSelectedOrders([...selectedOrders, orderId]);
+    }
+  };
+
+  const handleBulkMarkAsReceived = async () => {
+    if (selectedOrders.length === 0) {
+      alert('Please select orders to mark as received');
+      return;
+    }
+    
+    if (window.confirm(`Mark ${selectedOrders.length} order(s) as received?`)) {
+      for (const orderId of selectedOrders) {
+        await api.updateOrderStatus(orderId, 'pending');
+      }
+      setOrders(orders.filter(o => !selectedOrders.includes(o.orderId)));
+      setFilteredOrders(filteredOrders.filter(o => !selectedOrders.includes(o.orderId)));
+      setSelectedOrders([]);
+      alert('Orders marked as received!');
+    }
+  };
 
   const formatDate = (dateString) => {
     if (!dateString) return "-";
@@ -86,12 +142,12 @@ const Orders = () => {
   const calculateRemainingDays = (appointmentDate, completedDate) => {
     if (completedDate) return "Completed";
     if (!appointmentDate) return "-";
-    
+
     const today = new Date();
     const dueDate = new Date(appointmentDate);
     const diffTime = dueDate - today;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays < 0) return `Overdue by ${Math.abs(diffDays)} days`;
     if (diffDays === 0) return "Due Today";
     return `${diffDays} days`;
@@ -99,10 +155,12 @@ const Orders = () => {
 
   const getStatusClass = (status) => {
     switch (status) {
+      case "receiving":
+        return styles.statusReceiving;
+      case "received":
+        return styles.statusReceived;
       case "pending":
         return styles.statusPending;
-      case "received":
-        return styles.statusReceiving;
       case "completed":
         return styles.statusCompleted;
       default:
@@ -116,7 +174,14 @@ const Orders = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h1>{title}</h1>
-        <button onClick={() => navigate("/dashboard/actions")}>Back</button>
+        <div className={styles.headerButtons}>
+          {isReceivingPage && selectedOrders.length > 0 && (
+            <button onClick={handleBulkMarkAsReceived} className={styles.bulkActionBtn}>
+              Mark as Received ({selectedOrders.length})
+            </button>
+          )}
+          <button onClick={() => navigate("/dashboard/actions")}>Back</button>
+        </div>
       </div>
       <div className={styles.filterSection}>
         <div className={styles.filterGroup}>
@@ -162,9 +227,19 @@ const Orders = () => {
         <table className={styles.ordersTable}>
           <thead>
             <tr>
+              {isReceivingPage && (
+                <th>
+                  <input
+                    type="checkbox"
+                    checked={filteredOrders.length > 0 && selectedOrders.length === filteredOrders.length}
+                    onChange={handleSelectAll}
+                    className={styles.checkbox}
+                  />
+                </th>
+              )}
               <th>Order ID</th>
+              <th>Vehicle Number</th>
               <th>Customer Name</th>
-              <th>Address</th>
               <th>Mobile</th>
               <th>Order Date</th>
               <th>Received Date</th>
@@ -172,32 +247,65 @@ const Orders = () => {
               <th>Remaining Days</th>
               <th>Completed Date</th>
               <th>Status</th>
+              {isReceivingPage && <th>Action</th>}
             </tr>
           </thead>
           <tbody>
             {filteredOrders.length === 0 ? (
               <tr>
-                <td colSpan="10" style={{ textAlign: "center", padding: "20px" }}>
+                <td
+                  colSpan="10"
+                  style={{ textAlign: "center", padding: "20px" }}
+                >
                   No orders found
                 </td>
               </tr>
             ) : (
               filteredOrders.map((order) => (
                 <tr key={order.orderId}>
+                  {isReceivingPage && (
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={selectedOrders.includes(order.orderId)}
+                        onChange={() => handleSelectOrder(order.orderId)}
+                        className={styles.checkbox}
+                      />
+                    </td>
+                  )}
                   <td>{order.orderId}</td>
-                  <td>{order.customer.name}</td>
-                  <td>{order.customer.address}</td>
-                  <td>{order.customer.mobile}</td>
-                  <td>{formatDate(order.timeline.orderPlaced)}</td>
-                  <td>{formatDate(order.timeline.receivedByDealer)}</td>
+                  <td>{order.vehicleNumber}</td>
+                  <td>{order.customerName}</td>
+                  <td>{order.customerMobile}</td>
+                  <td>{formatDate(order.orderPlaced)}</td>
+                  <td>{formatDate(order.receivedByDealer)}</td>
                   <td>{formatDate(order.appointmentDate)}</td>
-                  <td>{calculateRemainingDays(order.appointmentDate, order.timeline.completedDate)}</td>
-                  <td>{formatDate(order.timeline.completedDate)}</td>
                   <td>
-                    <span className={`${styles.statusBadge} ${getStatusClass(order.orderStatus)}`}>
-                      {order.orderStatus === "received" ? "Pending for Receiving" : order.orderStatus}
+                    {calculateRemainingDays(
+                      order.appointmentDate,
+                      order.completedDate,
+                    )}
+                  </td>
+                  <td>{formatDate(order.completedDate)}</td>
+                  <td>
+                    <span
+                      className={`${styles.statusBadge} ${getStatusClass(order.orderStatus)}`}
+                    >
+                      {order.orderStatus === "receiving"
+                        ? "Pending for Receiving"
+                        : order.orderStatus}
                     </span>
                   </td>
+                  {isReceivingPage && (
+                    <td>
+                      <button
+                        onClick={() => handleMarkAsReceived(order.orderId)}
+                        className={styles.actionBtn}
+                      >
+                        Mark as Received
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))
             )}

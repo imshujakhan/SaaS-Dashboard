@@ -1,22 +1,23 @@
 .dealerProfileContainer {
-  font-size: 20px;
-  margin: 30px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  font-size: 18px;
+  margin: 32px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  border: 1px solid #e0e0e0;
 }
 
 .dealerHeading {
   display: flex;
   justify-content: center;
-  background: linear-gradient(135deg, #a51e1e 0%, #8b1818 100%);
-  padding: 20px;
+  background: #10b981;
+  padding: 28px;
 }
 
 .dealerHeading h1 {
-  color: white;
-  font-size: 26px;
+  color: #ffffff;
+  font-size: 24px;
   font-weight: 600;
   margin: 0;
   text-transform: uppercase;
@@ -24,7 +25,7 @@
 }
 
 .tableWrapper {
-  padding: 30px;
+  padding: 32px;
 }
 
 .dealerTable {
@@ -34,16 +35,72 @@
 
 .dealerTable th {
   font-weight: 600;
-  color: #555;
+  color: #666666;
   text-align: left;
   padding: 16px;
   background-color: #f8f9fa;
-  border: 2px solid #dee2e6;
+  border: 1px solid #e0e0e0;
   white-space: nowrap;
+  font-size: 17px;
 }
 
 .dealerTable td {
-  color: #333;
+  color: #333333;
   padding: 16px;
-  border: 2px solid #dee2e6;
+  border: 1px solid #e0e0e0;
+  font-size: 17px;
+}
+
+@media (max-width: 768px) {
+  .dealerProfileContainer {
+    margin: 15px;
+  }
+
+  .dealerHeading {
+    padding: 20px;
+  }
+
+  .dealerHeading h1 {
+    font-size: 18px;
+  }
+
+  .tableWrapper {
+    padding: 15px;
+  }
+
+  .dealerTable {
+    display: block;
+  }
+
+  .dealerTable tbody {
+    display: block;
+  }
+
+  .dealerTable tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .dealerTable th,
+  .dealerTable td {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: none;
+    text-align: left;
+  }
+
+  .dealerTable th {
+    background: #f8f9fa;
+    font-weight: 600;
+  }
+
+  .dealerTable td {
+    background: #ffffff;
+  }
 }

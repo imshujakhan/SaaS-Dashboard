@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../../lib/api";
+import { api } from "../../services/api";
 import { PAGINATION } from "../../config/constants";
 
 export const fetchAllOrders = createAsyncThunk(
@@ -93,13 +93,18 @@ const ordersSlice = createSlice({
 
 // Helper function for filtering
 function filterOrders(orders, searchQuery) {
-  if (!searchQuery) return orders;
-  
-  return orders.filter((order) =>
-    order.orderId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    order.customerName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    order.customerMobile?.includes(searchQuery)
-  );
+  let filtered = orders;
+
+  // Search query filter
+  if (searchQuery) {
+    filtered = filtered.filter((order) =>
+      order.orderId.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order.customerName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order.customerMobile?.includes(searchQuery)
+    );
+  }
+
+  return filtered;
 }
 
 // Selectors
@@ -118,6 +123,11 @@ export const selectTotalPages = (state) => {
   return Math.ceil(filtered.length / PAGINATION.ITEMS_PER_PAGE);
 };
 
-export const { setSearchQuery, setCurrentPage, nextPage, previousPage } = ordersSlice.actions;
+export const { 
+  setSearchQuery, 
+  setCurrentPage, 
+  nextPage, 
+  previousPage
+} = ordersSlice.actions;
 
 export default ordersSlice.reducer;

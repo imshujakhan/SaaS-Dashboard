@@ -14,8 +14,9 @@ const TotalOrders = () => {
   const { loading, searchQuery, currentPage, filteredOrders, paginatedOrders, totalPages } = useOrders();
 
   const getStatusClass = (status) => {
+    if (status === "receiving") return styles.statusReceiving;
+    if (status === "received") return styles.statusReceived;
     if (status === "pending") return styles.statusPending;
-    if (status === "received") return styles.statusReceiving;
     if (status === "completed") return styles.statusCompleted;
     return "";
   };
@@ -28,6 +29,7 @@ const TotalOrders = () => {
         <h1>Total Orders</h1>
         <button onClick={() => navigate("/dashboard/actions")}>Back</button>
       </div>
+      
       <div className={styles.filterSection}>
         <div className={styles.filterGroup}>
           <label>Search:</label>
@@ -51,8 +53,8 @@ const TotalOrders = () => {
           <thead>
             <tr>
               <th>Order ID</th>
+              <th>Vehicle Number</th>
               <th>Customer Name</th>
-              <th>Address</th>
               <th>Mobile</th>
               <th>Status</th>
             </tr>
@@ -61,12 +63,12 @@ const TotalOrders = () => {
             {paginatedOrders.map((order) => (
               <tr key={order.id || order.orderId}>
                 <td>{order.orderId}</td>
+                <td>{order.vehicleNumber}</td>
                 <td>{order.customerName}</td>
-                <td>{order.customerAddress}</td>
                 <td>{order.customerMobile}</td>
                 <td>
                   <span className={`${styles.statusBadge} ${getStatusClass(order.orderStatus)}`}>
-                    {order.orderStatus === "received" ? "Pending for Receiving" : order.orderStatus}
+                    {order.orderStatus === "receiving" ? "Pending for Receiving" : order.orderStatus}
                   </span>
                 </td>
               </tr>

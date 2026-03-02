@@ -1,6 +1,7 @@
 .container {
   min-height: 100vh;
   padding: 30px;
+  background: #f0fdf4;
 }
 
 .header {
@@ -9,88 +10,103 @@
   align-items: center;
   margin-bottom: 30px;
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background: #10b981;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: 2px solid #1a1a1a;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 28px;
-  color: #333;
+  font-size: 26px;
+  color: #ffffff;
 }
 
 .header button {
   padding: 10px 24px;
   font-size: 16px;
   font-weight: 500;
-  background-color: #6c757d;
-  color: white;
-  border: none;
+  background: #fbbf24;
+  color: #1a1a1a;
+  border: 2px solid #1a1a1a;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .header button:hover {
-  background-color: #5a6268;
+  background: #f59e0b;
+  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3);
 }
 
 .tableContainer {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  overflow: auto;
+  border: 3px solid #000;
+  max-height: 70vh;
 }
 
 .ordersTable {
   width: 100%;
   border-collapse: collapse;
+  font-size: 18px;
 }
 
 .ordersTable thead {
-  background-color: #f8f9fa;
+  background: #10b981;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .ordersTable th {
-  padding: 16px;
+  padding: 12px 8px;
   text-align: left;
   font-weight: 600;
-  color: #333;
-  border-bottom: 2px solid #dee2e6;
+  color: #ffffff;
+  border-bottom: 2px solid #000;
+  font-size: 17px;
+  white-space: nowrap;
 }
 
 .ordersTable td {
-  padding: 16px;
+  padding: 12px 8px;
   border-bottom: 1px solid #dee2e6;
-  color: #555;
+  color: #1a1a1a;
+  font-size: 17px;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .ordersTable tbody tr:hover {
-  background-color: #f8f9fa;
+  background: #fef3c7;
 }
 
 .statusBadge {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-size: 16px;
   font-weight: 500;
   text-transform: capitalize;
+  display: inline-block;
 }
 
 .statusPending {
-  background-color: #ffc107;
-  color: #000;
+  background: #fbbf24;
+  color: #1a1a1a;
 }
 
 .statusReceiving {
-  background-color: #17a2b8;
-  color: white;
+  background: #10b981;
+  color: #ffffff;
 }
 
 .statusCompleted {
-  background-color: #28a745;
-  color: white;
+  background: #000;
+  color: #fff;
 }
 
 .loading {
@@ -116,10 +132,11 @@
   gap: 20px;
   align-items: center;
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   margin-bottom: 20px;
+  border: 3px solid #000;
 }
 
 .filterGroup {
@@ -144,24 +161,27 @@
 
 .dateInput:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #1E90FF;
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.2);
 }
 
 .clearButton {
   padding: 10px 20px;
   font-size: 16px;
   font-weight: 500;
-  background-color: #6c757d;
-  color: white;
-  border: none;
+  background: #000;
+  color: #FFD700;
+  border: 2px solid #000;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .clearButton:hover {
-  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
 .searchInput {
@@ -175,7 +195,8 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #1E90FF;
+  box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.2);
 }
 
 .pagination {
@@ -189,20 +210,157 @@
 
 .pagination button {
   padding: 8px 16px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
+  background: #10b981;
+  color: #ffffff;
+  border: 2px solid #000;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
-.pagination button:disabled {
-  background: #ccc;
-  cursor: not-allowed;
+.pagination button:hover:not(:disabled) {
+  background: #059669;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
 }
 
 .pagination span {
   font-weight: 500;
   color: #333;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #10b981;
+}
+
+.printBtn {
+  background: #fbbf24;
+  border: 2px solid #1a1a1a;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.printBtn:hover {
+  background: #f59e0b;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.actionBtn {
+  background: #10b981;
+  color: #ffffff;
+  border: 2px solid #1a1a1a;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+}
+
+.actionBtn:hover {
+  background: #059669;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.headerButtons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.bulkActionBtn {
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  background: #10b981;
+  color: #ffffff;
+  border: 2px solid #1a1a1a;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bulkActionBtn:hover {
+  background: #059669;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .headerButtons {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .headerButtons button,
+  .header button {
+    width: 100%;
+  }
+
+  .filterSection {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .filterGroup {
+    width: 100%;
+  }
+
+  .searchInput,
+  .dateInput {
+    width: 100%;
+  }
+
+  .clearButton,
+  .bulkActionBtn {
+    width: 100%;
+  }
+
+  .tableContainer {
+    overflow-x: auto;
+  }
+
+  .ordersTable {
+    font-size: 14px;
+  }
+
+  .ordersTable th,
+  .ordersTable td {
+    padding: 10px 6px;
+    font-size: 13px;
+  }
+
+  .statusBadge {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .actionBtn {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
 }

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { vehicleDatabase, dealerDatabase, timeSlots } from "../constants/vehicleData";
+import { vehicleDatabase, dealerDatabase, timeSlots } from "../config/vehicleData";
 import { getMinDate, getMaxDate } from "../utils/helpers";
-import { api } from "../lib/api";
+import { api } from "../services/api";
 import styles from "./BookingForm.module.css";
 
 function BookingForm() {
@@ -31,12 +31,20 @@ function BookingForm() {
   const [loading, setLoading] = useState(false);
 
   const handleVerificationChange = (e) => {
-    setVerificationData({ ...verificationData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    const updatedValue = name === 'vehicleNumber' ? value.toUpperCase() : value;
+    setVerificationData({ ...verificationData, [name]: updatedValue });
     setError("");
   };
 
   const handleContactChange = (e) => {
-    setContactData({ ...contactData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'mobile') {
+      const numericValue = value.replace(/\D/g, '').slice(0, 10);
+      setContactData({ ...contactData, [name]: numericValue });
+    } else {
+      setContactData({ ...contactData, [name]: value });
+    }
   };
 
   const handleAppointmentChange = (e) => {
@@ -47,9 +55,17 @@ function BookingForm() {
     e.preventDefault();
     setLoading(true);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       console.log('Searching for:', verificationData);
       console.log('Database:', vehicleDatabase);
+      
+      // Check if vehicle number already has an order
+      const checkResult = await api.getOrderById(verificationData.vehicleNumber);
+      if (checkResult.success) {
+        setError(`This vehicle number (${verificationData.vehicleNumber}) already has an existing order. Duplicate bookings are not allowed.`);
+        setLoading(false);
+        return;
+      }
       
       const vehicle = vehicleDatabase.find(
         (v) => {
@@ -93,6 +109,9 @@ function BookingForm() {
       const orderData = {
         dealerId: appointmentData.dealer,
         vehicleNumber: verificationData.vehicleNumber,
+        chassisNumber: verificationData.chassisNumber,
+        engineNumber: verificationData.engineNumber,
+        vehicleClass: verificationData.vehicleClass,
         customerName: contactData.name,
         customerMobile: contactData.mobile,
         customerAddress: contactData.address,
@@ -145,32 +164,34 @@ function BookingForm() {
 
           {step === 1 && (
             <form onSubmit={handleVerify} className={styles.form}>
-              <div className={styles.formGroup}>
-                <label>State *</label>
-                <select
-                  name="state"
-                  value={verificationData.state}
-                  onChange={handleVerificationChange}
-                  required
-                >
-                  <option value="">Select State</option>
-                  <option value="maharashtra">Maharashtra</option>
-                  <option value="delhi">Delhi</option>
-                  <option value="karnataka">Karnataka</option>
-                  <option value="gujarat">Gujarat</option>
-                </select>
-              </div>
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label>State *</label>
+                  <select
+                    name="state"
+                    value={verificationData.state}
+                    onChange={handleVerificationChange}
+                    required
+                  >
+                    <option value="">Select State</option>
+                    <option value="maharashtra">Maharashtra</option>
+                    <option value="delhi">Delhi</option>
+                    <option value="karnataka">Karnataka</option>
+                    <option value="gujarat">Gujarat</option>
+                  </select>
+                </div>
 
-              <div className={styles.formGroup}>
-                <label>Vehicle Number *</label>
-                <input
-                  type="text"
-                  name="vehicleNumber"
-                  value={verificationData.vehicleNumber}
-                  onChange={handleVerificationChange}
-                  placeholder="e.g., MH12AB1234"
-                  required
-                />
+                <div className={styles.formGroup}>
+                  <label>Vehicle Number *</label>
+                  <input
+                    type="text"
+                    name="vehicleNumber"
+                    value={verificationData.vehicleNumber}
+                    onChange={handleVerificationChange}
+                    placeholder="e.g., MH12AB1234"
+                    required
+                  />
+                </div>
               </div>
 
               <div className={styles.formRow}>
@@ -201,30 +222,32 @@ function BookingForm() {
                 </div>
               </div>
 
-              <div className={styles.formGroup}>
-                <label>Date of Registration *</label>
-                <input
-                  type="date"
-                  name="registrationDate"
-                  value={verificationData.registrationDate}
-                  onChange={handleVerificationChange}
-                  required
-                />
-              </div>
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label>Date of Registration *</label>
+                  <input
+                    type="date"
+                    name="registrationDate"
+                    value={verificationData.registrationDate}
+                    onChange={handleVerificationChange}
+                    required
+                  />
+                </div>
 
-              <div className={styles.formGroup}>
-                <label>Vehicle Class *</label>
-                <select
-                  name="vehicleClass"
-                  value={verificationData.vehicleClass}
-                  onChange={handleVerificationChange}
-                  required
-                >
-                  <option value="">Select Vehicle Class</option>
-                  <option value="2w">Two Wheeler (2W)</option>
-                  <option value="4w">Four Wheeler (4W)</option>
-                  <option value="hgv">Heavy Goods Vehicle (HGV)</option>
-                </select>
+                <div className={styles.formGroup}>
+                  <label>Vehicle Class *</label>
+                  <select
+                    name="vehicleClass"
+                    value={verificationData.vehicleClass}
+                    onChange={handleVerificationChange}
+                    required
+                  >
+                    <option value="">Select Vehicle Class</option>
+                    <option value="2w">Two Wheeler (2W)</option>
+                    <option value="4w">Four Wheeler (4W)</option>
+                    <option value="hgv">Heavy Goods Vehicle (HGV)</option>
+                  </select>
+                </div>
               </div>
 
               <button type="submit" className={styles.submitButton} disabled={loading}>
@@ -235,16 +258,31 @@ function BookingForm() {
 
           {step === 2 && (
             <form onSubmit={handleContactSubmit} className={styles.form}>
-              <div className={styles.formGroup}>
-                <label>Full Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={contactData.name}
-                  onChange={handleContactChange}
-                  placeholder="Enter your full name"
-                  required
-                />
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label>Full Name *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={contactData.name}
+                    onChange={handleContactChange}
+                    placeholder="Enter your full name"
+                    required
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Mobile Number *</label>
+                  <input
+                    type="tel"
+                    name="mobile"
+                    value={contactData.mobile}
+                    onChange={handleContactChange}
+                    placeholder="10-digit mobile number"
+                    maxLength="10"
+                    required
+                  />
+                </div>
               </div>
 
               <div className={styles.formGroup}>
@@ -259,19 +297,6 @@ function BookingForm() {
                 />
               </div>
 
-              <div className={styles.formGroup}>
-                <label>Mobile Number *</label>
-                <input
-                  type="tel"
-                  name="mobile"
-                  value={contactData.mobile}
-                  onChange={handleContactChange}
-                  placeholder="10-digit mobile number"
-                  pattern="[0-9]{10}"
-                  required
-                />
-              </div>
-
               <button type="submit" className={styles.submitButton}>
                 Continue to Appointment
               </button>
@@ -280,21 +305,40 @@ function BookingForm() {
 
           {step === 3 && (
             <form onSubmit={handleFinalSubmit} className={styles.form}>
-              <div className={styles.formGroup}>
-                <label>Select Dealer *</label>
-                <select
-                  name="dealer"
-                  value={appointmentData.dealer}
-                  onChange={handleAppointmentChange}
-                  required
-                >
-                  <option value="">Select Dealer</option>
-                  {dealerDatabase.map((dealer) => (
-                    <option key={dealer.id} value={dealer.id}>
-                      {dealer.name} - {dealer.location}
-                    </option>
-                  ))}
-                </select>
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label>Select Dealer *</label>
+                  <select
+                    name="dealer"
+                    value={appointmentData.dealer}
+                    onChange={handleAppointmentChange}
+                    required
+                  >
+                    <option value="">Select Dealer</option>
+                    {dealerDatabase.map((dealer) => (
+                      <option key={dealer.id} value={dealer.id}>
+                        {dealer.name} - {dealer.location}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Time Slot *</label>
+                  <select
+                    name="slot"
+                    value={appointmentData.slot}
+                    onChange={handleAppointmentChange}
+                    required
+                  >
+                    <option value="">Select Time Slot</option>
+                    {timeSlots.map((slot, index) => (
+                      <option key={index} value={slot}>
+                        {slot}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
 
               <div className={styles.formGroup}>
@@ -309,23 +353,6 @@ function BookingForm() {
                   required
                 />
                 <small className={styles.hint}>Appointments available 5-14 days from today</small>
-              </div>
-
-              <div className={styles.formGroup}>
-                <label>Time Slot *</label>
-                <select
-                  name="slot"
-                  value={appointmentData.slot}
-                  onChange={handleAppointmentChange}
-                  required
-                >
-                  <option value="">Select Time Slot</option>
-                  {timeSlots.map((slot, index) => (
-                    <option key={index} value={slot}>
-                      {slot}
-                    </option>
-                  ))}
-                </select>
               </div>
 
               <button type="submit" className={styles.submitButton} disabled={loading}>
@@ -372,11 +399,52 @@ function BookingForm() {
                 </div>
               </div>
 
-              <button onClick={() => navigate("/")} className={styles.submitButton}>
-                Back to Home
-              </button>
+              <div className={styles.actionButtons}>
+                <button onClick={() => window.print()} className={styles.printButton}>
+                  🖨️ Print Receipt
+                </button>
+                <button onClick={() => navigate("/")} className={styles.submitButton}>
+                  Back to Home
+                </button>
+              </div>
             </div>
           )}
+        </div>
+
+        <div className={styles.stepIndicator}>
+          <h3>Booking Progress</h3>
+          
+          <div className={`${styles.stepItem} ${step > 1 ? styles.completed : ''} ${step === 1 ? styles.active : ''}`}>
+            <div className={styles.stepNumber}>{step > 1 ? '✓' : '1'}</div>
+            <div className={styles.stepContent}>
+              <h4>Vehicle Verification</h4>
+              <p>Verify your vehicle details</p>
+            </div>
+          </div>
+
+          <div className={`${styles.stepItem} ${step > 2 ? styles.completed : ''} ${step === 2 ? styles.active : ''}`}>
+            <div className={styles.stepNumber}>{step > 2 ? '✓' : '2'}</div>
+            <div className={styles.stepContent}>
+              <h4>Contact Information</h4>
+              <p>Provide your contact details</p>
+            </div>
+          </div>
+
+          <div className={`${styles.stepItem} ${step > 3 ? styles.completed : ''} ${step === 3 ? styles.active : ''}`}>
+            <div className={styles.stepNumber}>{step > 3 ? '✓' : '3'}</div>
+            <div className={styles.stepContent}>
+              <h4>Appointment</h4>
+              <p>Select dealer and time slot</p>
+            </div>
+          </div>
+
+          <div className={`${styles.stepItem} ${step === 4 ? styles.completed : ''}`}>
+            <div className={styles.stepNumber}>{step === 4 ? '✓' : '4'}</div>
+            <div className={styles.stepContent}>
+              <h4>Confirmation</h4>
+              <p>Booking completed</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

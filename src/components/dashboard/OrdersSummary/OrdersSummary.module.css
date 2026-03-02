@@ -1,5 +1,5 @@
 .orderSummary {
-  margin: 30px;
+  margin: 32px;
 }
 
 .orderHeading {
@@ -9,56 +9,108 @@
 }
 
 .orderHeading > div {
-  border-radius: 12px;
-  padding: 30px 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 16px;
+  padding: 32px 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
 }
 
 .orderHeading > div:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
 .orderHeading h1 {
   font-size: 56px;
   font-weight: 700;
-  margin: 0 0 10px 0;
-  color: #333;
+  margin: 0 0 12px 0;
+  color: #1a1a1a;
+  letter-spacing: -1px;
 }
 
 .orderHeading a {
-  font-size: 18px;
+  font-size: 16px;
   text-decoration: none;
-  color: #555;
+  color: #667eea;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .orderHeading a:hover {
-  color: #000;
+  color: #5568d3;
+  text-decoration: underline;
 }
 
 .totalOrder {
-  background: linear-gradient(135deg, #6bb7ee 0%, #5aa3d9 100%);
-  width: 24%;
+  background: #10b981;
+  width: 19%;
+  text-align: center;
+  border: none;
+}
+
+.totalOrder h1,
+.totalOrder a {
+  color: #ffffff;
+}
+
+.receivingOrders {
+  background: #fbbf24;
+  width: 19%;
   text-align: center;
 }
 
+.receivingOrders h1,
+.receivingOrders a {
+  color: #1a1a1a;
+}
+
 .orderReceivedToDealer {
-  background: linear-gradient(135deg, #d8ef74 0%, #c5db5f 100%);
-  width: 24%;
+  background: #ffffff;
+  width: 19%;
   text-align: center;
 }
 
 .pendingOrders {
-  background: linear-gradient(135deg, #eb6565 0%, #d95555 100%);
-  width: 24%;
+  background: #fbbf24;
+  width: 19%;
   text-align: center;
 }
 
+.pendingOrders h1,
+.pendingOrders a {
+  color: #1a1a1a;
+}
+
 .completedTillDate {
-  background: linear-gradient(135deg, #a8e67b 0%, #92d165 100%);
-  width: 24%;
+  background: #ffffff;
+  width: 19%;
   text-align: center;
+}
+
+@media (max-width: 968px) {
+  .orderSummary {
+    margin: 20px;
+  }
+
+  .orderHeading {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .totalOrder,
+  .receivingOrders,
+  .orderReceivedToDealer,
+  .pendingOrders,
+  .completedTillDate {
+    width: 100%;
+  }
+
+  .orderHeading h1 {
+    font-size: 42px;
+  }
+
+  .orderHeading a {
+    font-size: 14px;
+  }
 }

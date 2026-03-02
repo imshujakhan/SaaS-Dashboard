@@ -1,18 +1,24 @@
 .pageContainer {
   min-height: 100vh;
-  background: white;
+  background: #f0fdf4;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
-  background: white;
+  background: #ffffff;
   border-bottom: 1px solid #e0e0e0;
-  padding: 20px 0;
+  padding: 24px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .headerContent {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,177 +26,305 @@
 
 .logo h1 {
   margin: 0;
-  font-size: 28px;
-  font-weight: 700;
-  color: #333;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
 }
 
 .dealerLoginBtn {
-  background: #333;
-  color: white;
+  background: #1a1a1a;
+  color: #ffffff;
   border: none;
-  padding: 12px 30px;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .dealerLoginBtn:hover {
-  background: #555;
-  transform: translateY(-2px);
+  background: #333333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.mainContent {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 20px;
+.heroSection {
+  background: #10b981;
+  padding: 120px 32px;
   text-align: center;
 }
 
-.contentSection h2 {
+.heroContent {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.heroTitle {
   font-size: 56px;
-  color: #333;
-  margin: 0 0 20px 0;
   font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px 0;
   line-height: 1.2;
+  letter-spacing: -1px;
 }
 
-.contentSection > p {
-  font-size: 24px;
-  color: #666;
-  margin: 0 0 60px 0;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  margin-bottom: 60px;
-  text-align: left;
-}
-
-.feature {
-  padding: 30px;
-  background: #f9f9f9;
-  border-radius: 8px;
-}
-
-.feature h3 {
-  font-size: 22px;
-  color: #333;
-  margin: 0 0 12px 0;
-  font-weight: 600;
-}
-
-.feature p {
-  font-size: 16px;
-  color: #666;
-  margin: 0;
+.heroSubtitle {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 48px 0;
+  font-weight: 400;
   line-height: 1.6;
 }
 
-.bookButton {
-  background: #333;
-  color: white;
+.heroButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.primaryBtn {
+  background: #fbbf24;
+  color: #1a1a1a;
   border: none;
-  padding: 20px 60px;
+  padding: 16px 40px;
   border-radius: 8px;
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.primaryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.3);
+}
+
+.secondaryBtn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  padding: 16px 40px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.secondaryBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.featuresSection {
+  padding: 96px 32px;
+  background: #ffffff;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 64px 0;
+  letter-spacing: -0.5px;
+}
+
+.featuresGrid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.featureCard {
+  background: #f8f9fa;
+  padding: 40px 32px;
+  border-radius: 16px;
+  border: 1px solid #e0e0e0;
+  text-align: center;
   transition: all 0.3s ease;
 }
 
-.bookButton:hover {
-  background: #555;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+.featureCard:hover {
+  background: #fef3c7;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  transform: translateY(-4px);
+  border-color: #fbbf24;
 }
 
-.trackSection {
-  margin-top: 80px;
-  padding-top: 60px;
+.featureIcon {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.featureCard h3 {
+  font-size: 20px;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  font-weight: 600;
+}
+
+.featureCard p {
+  font-size: 15px;
+  color: #666666;
+  margin: 0;
+  line-height: 1.7;
+}
+
+.trackSectionWrapper {
+  background: #f8f9fa;
+  padding: 96px 32px;
   border-top: 1px solid #e0e0e0;
 }
 
-.trackSection h3 {
-  font-size: 32px;
-  color: #333;
-  margin: 0 0 30px 0;
-  font-weight: 600;
+.trackContainer {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.trackTitle {
+  font-size: 40px;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.trackSubtitle {
+  font-size: 17px;
+  color: #666666;
+  margin: 0 0 40px 0;
+  line-height: 1.6;
 }
 
 .trackForm {
   display: flex;
-  gap: 15px;
+  gap: 12px;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  flex-wrap: wrap;
 }
 
 .trackInput {
-  padding: 16px 24px;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  font-size: 18px;
-  width: 350px;
+  padding: 16px 20px;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 16px;
+  flex: 1;
+  min-width: 300px;
   outline: none;
   transition: all 0.3s ease;
+  background: #ffffff;
+  color: #1a1a1a;
 }
 
 .trackInput:focus {
-  border-color: #333;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .trackButton {
-  background: #333;
-  color: white;
+  background: #fbbf24;
+  color: #1a1a1a;
   border: none;
-  padding: 16px 40px;
-  border-radius: 6px;
-  font-size: 18px;
+  padding: 16px 32px;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .trackButton:hover {
-  background: #555;
-  transform: translateY(-2px);
+  background: #f59e0b;
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
+}
+
+.footer {
+  background: #1a1a1a;
+  color: #999999;
+  text-align: center;
+  padding: 32px 20px;
+  margin-top: auto;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
 }
 
 @media (max-width: 968px) {
-  .contentSection h2 {
+  .heroSection {
+    padding: 80px 24px;
+  }
+
+  .heroTitle {
     font-size: 42px;
   }
 
-  .contentSection > p {
-    font-size: 20px;
+  .heroSubtitle {
+    font-size: 18px;
   }
 
-  .features {
+  .sectionTitle {
+    font-size: 32px;
+  }
+
+  .featuresSection,
+  .trackSectionWrapper {
+    padding: 64px 24px;
+  }
+
+  .featuresGrid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 24px;
   }
 
-  .bookButton {
-    font-size: 20px;
-    padding: 18px 50px;
+  .primaryBtn,
+  .secondaryBtn {
+    font-size: 16px;
+    padding: 14px 32px;
   }
 }
 
 @media (max-width: 640px) {
   .headerContent {
-    flex-direction: column;
-    gap: 15px;
+    padding: 0 20px;
   }
 
-  .contentSection h2 {
+  .heroSection {
+    padding: 60px 20px;
+  }
+
+  .heroTitle {
     font-size: 32px;
   }
 
-  .contentSection > p {
-    font-size: 18px;
+  .heroSubtitle {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+
+  .trackTitle {
+    font-size: 28px;
+  }
+
+  .trackForm {
+    flex-direction: column;
+  }
+
+  .trackInput {
+    min-width: 100%;
+  }
+
+  .featuresSection,
+  .trackSectionWrapper {
+    padding: 48px 20px;
   }
 }

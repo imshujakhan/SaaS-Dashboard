@@ -1,4 +1,6 @@
 import styles from "./DealerProfile.module.css";
+import DealerProfileHeader from "./DealerProfileHeader";
+import DealerProfileTable from "./DealerProfileTable";
 
 const DealerProfile = ({ data }) => {
   if (!data) return null;
@@ -6,7 +8,7 @@ const DealerProfile = ({ data }) => {
   const profileFields = [
     { label: "DealerShip Name", value: data.dealershipName },
     { label: "Address", value: data.address },
-    { label: "User ID", value: data.userId },
+    { label: "User ID", value: data.dealerId },
     { label: "Email ID", value: data.email },
     { label: "Contact Person", value: data.contactPerson },
     { label: "Mobile No", value: data.mobile }
@@ -14,32 +16,8 @@ const DealerProfile = ({ data }) => {
 
   return (
     <div className={styles.dealerProfileContainer}>
-      <div className={styles.dealerHeading}>
-        <h1>Dealer Profile</h1>
-      </div>
-      <div className={styles.tableWrapper}>
-        <table className={styles.dealerTable}>
-          <tbody>
-            {profileFields.map((field, index) => {
-              if (index % 2 === 0) {
-                return (
-                  <tr key={index}>
-                    <th>{field.label}:</th>
-                    <td>{field.value}</td>
-                    {profileFields[index + 1] && (
-                      <>
-                        <th>{profileFields[index + 1].label}:</th>
-                        <td>{profileFields[index + 1].value}</td>
-                      </>
-                    )}
-                  </tr>
-                );
-              }
-              return null;
-            })}
-          </tbody>
-        </table>
-      </div>
+      <DealerProfileHeader />
+      <DealerProfileTable profileFields={profileFields} />
     </div>
   );
 };

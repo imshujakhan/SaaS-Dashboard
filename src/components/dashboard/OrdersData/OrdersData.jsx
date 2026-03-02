@@ -1,91 +1,35 @@
-import { useNavigate } from "react-router-dom";
 import styles from "./OrdersData.module.css";
+import DataTable from "./DataTable";
+import QuickStatsTable from "./QuickStatsTable";
+import ActionButton from "./ActionButton";
 
 const OrdersData = ({ scheduledAppointments, hsrpReceived, quickStats }) => {
-  const navigate = useNavigate();
   if (!scheduledAppointments || !hsrpReceived || !quickStats) return null;
+
+  const scheduledRows = scheduledAppointments.map(item => [
+    { value: item.date },
+    { value: item.orders, link: true }
+  ]);
+
+  const hsrpRows = hsrpReceived.map(item => [
+    { value: item.date },
+    { value: item.count, link: true }
+  ]);
 
   return (
     <>
       <div className={styles.dataTables}>
-        <div>
-          <table className="table table-bordered">
-            <tbody>
-              <tr>
-                <th>
-                  <h4>Scheduled Appointment</h4>
-                </th>
-                <th>
-                  <h4>Orders</h4>
-                </th>
-              </tr>
-              {scheduledAppointments.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.date}</td>
-                  <td>
-                    <a href="#">{item.orders}</a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <table className="table table-bordered">
-            <tbody>
-              <tr>
-                <th>
-                  <h4>Appointment Date</h4>
-                </th>
-                <th>
-                  <h4>
-                    HSRP Received
-                    <br />
-                    By Dealer
-                  </h4>
-                </th>
-              </tr>
-              {hsrpReceived.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.date}</td>
-                  <td>
-                    <a href="#">{item.count}</a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div>
-          <table className="table table-bordered">
-            <tbody>
-              {quickStats.map((stat, index) => (
-                <>
-                  <tr key={`title-${index}`}>
-                    <th>
-                      <h4>{stat.title}</h4>
-                    </th>
-                  </tr>
-                  <tr key={`count-${index}`}>
-                    <td>
-                      <a href="#">{stat.count}</a>
-                    </td>
-                  </tr>
-                </>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <DataTable 
+          headers={["Scheduled Appointment", "Orders"]} 
+          rows={scheduledRows} 
+        />
+        <DataTable 
+          headers={["Appointment Date", "HSRP Received\nBy Dealer"]} 
+          rows={hsrpRows} 
+        />
+        <QuickStatsTable stats={quickStats} />
       </div>
-      <div className={styles.buttonContainer}>
-        <button 
-          type="button" 
-          className="btn btn-primary"
-          onClick={() => navigate("/dashboard/actions")}
-        >
-          Actions/Reports
-        </button>
-      </div>
+      <ActionButton />
     </>
   );
 };

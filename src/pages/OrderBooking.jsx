@@ -18,7 +18,7 @@ function OrderBooking() {
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <div className={styles.logo}>
-            <h1>HSRP Booking Portal</h1>
+            <h1>HSRP Portal</h1>
           </div>
           <button onClick={() => navigate("/login")} className={styles.dealerLoginBtn}>
             Dealer Login
@@ -26,48 +26,70 @@ function OrderBooking() {
         </div>
       </header>
 
-      <div className={styles.mainContent}>
-        <div className={styles.contentSection}>
-          <h2>High Security Registration Plate</h2>
-          <p>Book your HSRP number plate online - Fast, Secure & Government Approved</p>
-          
-          <div className={styles.features}>
-            <div className={styles.feature}>
-              <h3>Tamper-Proof</h3>
-              <p>Non-removable and non-reusable plates with chromium hologram</p>
-            </div>
-            <div className={styles.feature}>
-              <h3>Government Approved</h3>
-              <p>Fully compliant with Ministry of Road Transport regulations</p>
-            </div>
-            <div className={styles.feature}>
-              <h3>Easy Installation</h3>
-              <p>Snap lock mechanism for quick and secure fitment</p>
-            </div>
-          </div>
-
-          <button onClick={() => navigate("/booking-form")} className={styles.bookButton}>
-            Book HSRP
-          </button>
-
-          <div className={styles.trackSection}>
-            <h3>Track Your Order</h3>
-            <form onSubmit={handleTrackOrder} className={styles.trackForm}>
-              <input
-                type="text"
-                value={orderId}
-                onChange={(e) => setOrderId(e.target.value)}
-                placeholder="Enter Order ID"
-                className={styles.trackInput}
-                required
-              />
-              <button type="submit" className={styles.trackButton}>
-                Track Order
-              </button>
-            </form>
+      <div className={styles.heroSection}>
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>High Security Registration Plate</h1>
+          <p className={styles.heroSubtitle}>Government Approved • Tamper-Proof • Easy Installation</p>
+          <div className={styles.heroButtons}>
+            <button onClick={() => navigate("/booking-form")} className={styles.primaryBtn}>
+              Book HSRP Now
+            </button>
+            <button onClick={() => document.getElementById('trackSection').scrollIntoView({ behavior: 'smooth' })} className={styles.secondaryBtn}>
+              Track Order
+            </button>
           </div>
         </div>
       </div>
+
+      <div className={styles.featuresSection}>
+        <h2 className={styles.sectionTitle}>Why Choose HSRP?</h2>
+        <div className={styles.featuresGrid}>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>🔒</div>
+            <h3>Tamper-Proof Security</h3>
+            <p>Non-removable plates with chromium hologram and laser-etched details</p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>✓</div>
+            <h3>Government Approved</h3>
+            <p>Fully compliant with Ministry of Road Transport & Highways regulations</p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>⚡</div>
+            <h3>Quick Installation</h3>
+            <p>Snap lock mechanism ensures fast and secure fitment at your location</p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}>📱</div>
+            <h3>Online Booking</h3>
+            <p>Book from home, choose appointment slot, and get doorstep installation</p>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.trackSectionWrapper} id="trackSection">
+        <div className={styles.trackContainer}>
+          <h2 className={styles.trackTitle}>Track Your Order</h2>
+          <p className={styles.trackSubtitle}>Enter your Order ID to check status</p>
+          <form onSubmit={handleTrackOrder} className={styles.trackForm}>
+            <input
+              type="text"
+              value={orderId}
+              onChange={(e) => setOrderId(e.target.value)}
+              placeholder="Enter Order ID (e.g., ORD001)"
+              className={styles.trackInput}
+              required
+            />
+            <button type="submit" className={styles.trackButton}>
+              Track Now
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <footer className={styles.footer}>
+        <p>© 2024 HSRP Booking Portal. All rights reserved.</p>
+      </footer>
     </div>
   );
 }

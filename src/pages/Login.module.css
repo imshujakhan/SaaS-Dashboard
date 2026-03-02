@@ -1,7 +1,7 @@
 .loginContainer {
   min-height: 100vh;
   display: flex;
-  background: white;
+  background: #f8f9fa;
 }
 
 .leftSection {
@@ -9,8 +9,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 60px;
-  color: #2c3e50;
+  padding: 64px;
+  color: #ffffff;
+  background: #10b981;
 }
 
 .content {
@@ -18,37 +19,39 @@
 }
 
 .mainTitle {
-  font-size: 32px;
-  font-weight: 300;
-  margin: 0 0 10px 0;
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0 0 12px 0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .brandTitle {
   font-size: 48px;
   font-weight: 700;
-  margin: 0 0 30px 0;
-  letter-spacing: 2px;
-  color: #667eea;
+  margin: 0 0 32px 0;
+  letter-spacing: -1px;
+  color: #ffffff;
 }
 
 .description {
-  font-size: 18px;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.7;
   margin-bottom: 40px;
-  color: #555;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .features {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
 }
 
 .feature {
   font-size: 16px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .rightSection {
@@ -56,16 +59,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 48px;
+  background: #ffffff;
 }
 
 .loginBox {
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 500px;
-  padding: 50px;
+  max-width: 480px;
+  padding: 48px;
+  border: 1px solid #e0e0e0;
 }
 
 .logoSection {
@@ -74,22 +79,23 @@
 }
 
 .logo {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 700;
-  color: #2c3e50;
+  color: #1a1a1a;
   margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
 }
 
 .subtitle {
-  color: #7f8c8d;
-  font-size: 16px;
+  color: #666666;
+  font-size: 15px;
   margin: 0;
 }
 
 .loginForm {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .formGroup {
@@ -99,16 +105,16 @@
 }
 
 .formGroup label {
-  font-size: 16px;
-  font-weight: 600;
-  color: #2c3e50;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333333;
 }
 
 .formGroup input {
-  padding: 14px 18px;
-  border: 2px solid #e0e0e0;
+  padding: 14px 16px;
+  border: 1px solid #d0d0d0;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 15px;
   transition: all 0.3s ease;
   outline: none;
 }
@@ -123,28 +129,27 @@
   color: #c33;
   padding: 12px;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 14px;
   text-align: center;
   border: 1px solid #fcc;
 }
 
 .loginButton {
-  background: #667eea;
-  color: white;
+  background: #fbbf24;
+  color: #1a1a1a;
   border: none;
   padding: 16px;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .loginButton:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-  background: #5568d3;
+  background: #f59e0b;
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.3);
 }
 
 .loginButton:disabled {
@@ -153,16 +158,36 @@
 }
 
 .footer {
-  margin-top: 30px;
-  padding-top: 20px;
+  margin-top: 32px;
+  padding-top: 24px;
   border-top: 1px solid #e0e0e0;
   text-align: center;
 }
 
 .footer p {
-  color: #7f8c8d;
+  color: #999999;
   font-size: 13px;
   margin: 0;
+}
+
+.forgotPassword {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.forgotLink {
+  background: none;
+  border: none;
+  color: #10b981;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: all 0.3s ease;
+}
+
+.forgotLink:hover {
+  color: #059669;
 }
 
 @media (max-width: 968px) {
@@ -171,14 +196,18 @@
   }
 
   .leftSection {
-    padding: 40px 30px;
+    padding: 48px 32px;
   }
 
   .brandTitle {
-    font-size: 36px;
+    font-size: 40px;
   }
 
   .rightSection {
-    padding: 30px 20px;
+    padding: 32px 24px;
+  }
+
+  .loginBox {
+    padding: 40px 32px;
   }
 }
